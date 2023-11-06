@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">project-P3L-Mobile</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="cek_ketersediaan">CEK KETERSEDIAAN</string>
+</resources>
