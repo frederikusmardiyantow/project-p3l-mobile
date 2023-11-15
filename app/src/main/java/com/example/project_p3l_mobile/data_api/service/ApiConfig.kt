@@ -26,7 +26,7 @@ object ApiConfig {
         val retrofit = Retrofit.Builder()
 //            .baseUrl("https://gah-jinston-api.azurewebsites.net/")
 //            .baseUrl("http://192.168.18.184:4000/")
-            .baseUrl("http://192.168.89.95/project-p3l-be/public/api/")
+            .baseUrl("https://project-p3l-be.frederikus.com/api/")
             .addConverterFactory(GsonConverterFactory.create())
             .client(client)
             .build()

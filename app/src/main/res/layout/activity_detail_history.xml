@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".DetailHistoryActivity">
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        tools:ignore="UnknownId"
+        android:padding="16dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/tvJudulDetailHistory"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="DETAIL TRANSAKSI"
+                android:textStyle="bold"
+                android:textSize="24dp"
+                android:textAlignment="center"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <TextView
+                android:id="@+id/tvSubJudul1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Data Pemesan"
+                android:layout_marginTop="32dp"
+                android:textSize="16dp"
+                android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@+id/tvJudulDetailHistory"/>
+            <TableLayout
+                android:id="@+id/myTableLayout1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:stretchColumns="*"
+                android:shrinkColumns="*"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="5dp"
+                app:layout_constraintTop_toBottomOf="@+id/tvSubJudul1">
+            </TableLayout>
+
+            <TextView
+                android:id="@+id/tvSubJudul2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Data Pesanan"
+                android:layout_marginTop="24dp"
+                android:textSize="16dp"
+                android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@+id/myTableLayout1"/>
+            <TableLayout
+                android:id="@+id/myTableLayout2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:stretchColumns="*"
+                android:shrinkColumns="*"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="5dp"
+                app:layout_constraintTop_toBottomOf="@+id/tvSubJudul2">
+            </TableLayout>
+            <TextView
+                android:id="@+id/tvSubJudul3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Kamar Dipesan"
+                android:layout_marginTop="24dp"
+                android:textSize="16dp"
+                android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@+id/myTableLayout2"/>
+            <LinearLayout
+                android:id="@+id/llKamarDiPesan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/tvSubJudul3"
+                android:layout_marginTop="8dp">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvKamarDiPesan"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                </androidx.recyclerview.widget.RecyclerView>
+            </LinearLayout>
+            <TextView
+                android:id="@+id/tvSubJudul4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Layanan Dipesan"
+                android:layout_marginTop="24dp"
+                android:textSize="16dp"
+                android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@+id/llKamarDiPesan"/>
+            <LinearLayout
+                android:id="@+id/llLayananDiPesan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/tvSubJudul4"
+                android:layout_marginTop="8dp">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvLayananDiPesan"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                </androidx.recyclerview.widget.RecyclerView>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvPesanPembatalan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Catatan"
+                android:textColor="@color/danger"
+                android:layout_marginTop="24dp"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@+id/llLayananDiPesan"/>
+            <TextView
+                android:id="@+id/tvPesanPembatalan2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Pengembalian uang hanya dapat dilakukan jika pembatalan dilakukan maksimal seminggu sebelum tanggal check-in"
+                android:layout_marginTop="8dp"
+                android:textStyle="italic"
+                android:textSize="16dp"
+                app:layout_constraintTop_toBottomOf="@+id/tvPesanPembatalan"/>
+
+            <Button
+                android:id="@+id/btnBatalkanPesanan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/tvPesanPembatalan2"
+                android:backgroundTint="@color/danger"
+                android:layout_marginTop="24dp"
+                android:text="Batalkan Pesanan"/>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+    <TextView
+        android:id="@+id/btnBack"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="12dp"
+        android:backgroundTint="@color/secondary"
+        android:text=""
+        android:background="@drawable/rounded_background"
+        android:layout_marginStart="20dp"
+        android:tint="@color/white"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center|center_vertical|center_horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:drawableStartCompat="@drawable/baseline_arrow_back_24" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

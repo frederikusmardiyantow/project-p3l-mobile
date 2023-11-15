@@ -135,11 +135,14 @@
                     android:id="@+id/tvStatus"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Waktu Check In : "
+                    android:text="Status"
                     android:textSize="20dp"
                     android:layout_gravity="center"
                     android:textAlignment="center"
-                    android:textAllCaps="true" />
+                    android:textAllCaps="true"
+                    android:textStyle="bold"
+                    android:background="@color/gray"
+                    />
             </LinearLayout>
 
 

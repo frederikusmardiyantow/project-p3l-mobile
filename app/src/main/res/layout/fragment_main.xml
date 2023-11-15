@@ -189,6 +189,7 @@
             android:orientation="vertical"
             android:gravity="center_horizontal"
             android:layout_marginTop="32dp"
+            android:paddingHorizontal="32dp"
             android:paddingVertical="16dp"
             android:background="@color/blue50"
             app:layout_constraintTop_toBottomOf="@+id/linearKamarUtama"
@@ -207,21 +208,60 @@
 
             <EditText
                 android:id="@+id/editTextTanggal"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Pilih Tanggal"
+                android:drawablePadding="8dp"
+                android:drawableStart="@drawable/baseline_calendar_month_24"
+                android:focusable="false"
+                android:clickable="true"
                 android:inputType="none"
+                android:layout_marginTop="16dp"/>
+
+            <EditText
+                android:id="@+id/editTextJumlahDewasa"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Jumlah Dewasa"
+                android:drawablePadding="8dp"
+                android:drawableStart="@drawable/baseline_person_24"
                 android:focusable="true"
                 android:clickable="true"
-                android:layout_marginTop="16dp" />
+                android:inputType="number"
+                android:layout_marginTop="8dp"/>
 
+            <EditText
+                android:id="@+id/editTextJumlahAnak"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Jumlah Anak"
+                android:drawablePadding="8dp"
+                android:drawableStart="@drawable/baseline_child_care_24"
+                android:focusable="true"
+                android:clickable="true"
+                android:inputType="number"
+                android:layout_marginTop="8dp"/>
+
+            <EditText
+                android:id="@+id/editTextJumlahKamar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Jumlah Kamar"
+                android:drawablePadding="8dp"
+                android:drawableStart="@drawable/baseline_meeting_room_24"
+                android:focusable="true"
+                android:clickable="true"
+                android:inputType="number"
+                android:layout_marginTop="8dp"/>
 
             <Button
                 android:id="@+id/btnCariKetersediaan"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:backgroundTint="@color/primary"
+                android:drawableStart="@drawable/baseline_search_24"
+                android:drawablePadding="8dp"
                 android:text="Cari"
                 android:layout_gravity="center"/>
 

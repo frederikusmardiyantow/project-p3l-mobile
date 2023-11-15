@@ -55,8 +55,8 @@ class HistoryFragment : Fragment() {
 
                 Log.d("Transaksi by id cust", data.toString())
 
-                Toast.makeText(requireActivity(), "Berhasil Menampilkan Data Transaksi", Toast.LENGTH_LONG).show()
-                if (data.trx_reservasis == null || data.trx_reservasis.isEmpty()) {
+//                Toast.makeText(requireActivity(), "Berhasil Menampilkan Data Transaksi", Toast.LENGTH_LONG).show()
+                if (data.trx_reservasis.isEmpty()) {
                     Toast.makeText(requireActivity(), "Data Kosong", Toast.LENGTH_LONG).show()
                 } else {
                     displayRecyclerView(data.trx_reservasis)
@@ -71,5 +71,4 @@ class HistoryFragment : Fragment() {
         val recyclerView = binding?.rvHistory
         recyclerView?.adapter = RV_HistoryAdapter(data)
     }
-
 }

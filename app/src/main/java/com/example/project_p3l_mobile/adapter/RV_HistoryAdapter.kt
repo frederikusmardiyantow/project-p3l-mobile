@@ -6,7 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.example.project_p3l_mobile.DetailHistoryActivity
 import com.example.project_p3l_mobile.R
 import com.example.project_p3l_mobile.data_api.model.HistoryTransaksiData
 import com.example.project_p3l_mobile.data_api.model.JenisKamarData
@@ -29,12 +31,22 @@ class RV_HistoryAdapter (private  val data: List<TransaksiReservasiData>) : Recy
         holder.tvWaktuPembayaran.text = "${currentItem.waktu_pembayaran.toString()}"
         holder.tvTotalHarga.text = "Rp ${currentItem.total_harga.toString()}"
         holder.tvStatus.text = "${currentItem.status}"
+        if (holder.tvStatus.text == "Menunggu Pembayaran"){
+            val color = ContextCompat.getColor(holder.itemView.context, R.color.secondary)
+            holder.tvStatus.setBackgroundColor(color)
+        } else if (holder.tvStatus.text == "In" || holder.tvStatus.text == "Terkonfirmasi"){
+            val color = ContextCompat.getColor(holder.itemView.context, R.color.success)
+            holder.tvStatus.setBackgroundColor(color)
+        } else if (holder.tvStatus.text == "Batal"){
+            val color = ContextCompat.getColor(holder.itemView.context, R.color.danger)
+            holder.tvStatus.setBackgroundColor(color)
+        }
 
         holder.itemView.setOnClickListener{
             onItemClick?.invoke(currentItem)
-//            val intent = Intent(holder.itemView.context, DetailKamarActivity::class.java)
-//            intent.putExtra("id", currentItem.id)
-//            holder.itemView.context.startActivity(intent)
+            val intent = Intent(holder.itemView.context, DetailHistoryActivity::class.java)
+            intent.putExtra("id", currentItem.id)
+            holder.itemView.context.startActivity(intent)
         }
     }
 

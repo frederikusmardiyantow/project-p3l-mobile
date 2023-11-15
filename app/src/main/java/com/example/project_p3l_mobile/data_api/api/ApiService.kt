@@ -2,9 +2,11 @@ package com.example.project_p3l_mobile.data_api.api
 
 import com.example.project_p3l_mobile.data_api.model.HistoryTransaksiData
 import com.example.project_p3l_mobile.data_api.model.ResponseBase
+import com.example.project_p3l_mobile.data_api.model.ResponseDataDetailHistory
 import com.example.project_p3l_mobile.data_api.model.ResponseDataHistoryByIdCust
 import com.example.project_p3l_mobile.data_api.model.ResponseDataJenisKamar
 import com.example.project_p3l_mobile.data_api.model.ResponseDataJenisKamarById
+import com.example.project_p3l_mobile.data_api.model.ResponseDataKetersediaanKamar
 import com.example.project_p3l_mobile.data_api.model.ResponseDataLoginCustomer
 import com.example.project_p3l_mobile.data_api.model.ResponseDataLoginPegawai
 import com.example.project_p3l_mobile.data_api.model.ResponseDataProfile
@@ -99,4 +101,26 @@ interface ApiService {
         @Field("email") email:String?,
         @Field("password") password:String?,
     ): ResponseDataLoginPegawai
+
+    @FormUrlEncoded
+    @POST("ketersediaan/kamar")
+    suspend fun postKetersediaanKamar(
+        @Field("tgl_check_in") tgl_check_in:String?,
+        @Field("tgl_check_out") tgl_check_out:String?,
+        @Field("jumlah_dewasa") jumlah_dewasa:Int?,
+        @Field("jumlah_anak_anak") jumlah_anak:Int?,
+        @Field("jumlah_kamar") jumlah_kamar:Int?,
+    ): ResponseDataKetersediaanKamar
+
+    @GET("transaksi/detail/{id}")
+    suspend fun getDetailTransaksi(
+        @Path("id") id:Int,
+        @Header("Authorization") token:String,
+    ): ResponseDataDetailHistory
+
+    @POST("transaksi/pembatalan/kamar/{id}")
+    suspend fun postBatalPesanan(
+        @Path("id") id:Int,
+        @Header("Authorization") token:String,
+    ): ResponseBase
 }

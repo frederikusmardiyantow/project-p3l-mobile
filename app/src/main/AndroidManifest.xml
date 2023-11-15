@@ -16,6 +16,12 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".DetailHistoryActivity"
+            android:exported="false" />
+        <activity
+            android:name=".KetersediaanKamarActivity"
+            android:exported="false" />
+        <activity
             android:name=".pegawai.NavigationPegawaiActivity"
             android:exported="false" />
         <activity

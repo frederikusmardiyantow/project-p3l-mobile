@@ -15,14 +15,19 @@ import com.example.project_p3l_mobile.adapter.RV_JenisKamarAdapter
 import com.example.project_p3l_mobile.data_api.model.JenisKamarData
 import com.example.project_p3l_mobile.data_api.service.ApiConfig
 import com.example.project_p3l_mobile.databinding.FragmentMainBinding
+import com.example.project_p3l_mobile.utils.Utils
+import com.google.android.material.datepicker.CalendarConstraints
+import com.google.android.material.datepicker.MaterialDatePicker
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.util.Date
 
 
 class MainFragment : Fragment() {
     var sharedPreferences: SharedPreferences? = null
     private var binding: FragmentMainBinding? = null
+    private val viewModel = MyViewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -68,12 +73,105 @@ class MainFragment : Fragment() {
             binding?.btnLoginInHomePage?.visibility = View.GONE
             binding?.tvNamaUser?.visibility = View.VISIBLE
             binding?.btnLogout?.visibility = View.VISIBLE
-            Toast.makeText(requireActivity(), "Selamat Datang ${sharedPreferences!!.getString("nama", null)}", Toast.LENGTH_LONG).show()
+//            Toast.makeText(requireActivity(), "Selamat Datang ${sharedPreferences!!.getString("nama", null)}", Toast.LENGTH_LONG).show()
             binding?.tvNamaUser?.setText(sharedPreferences!!.getString("nama", null))
         } else {
             binding?.tvNamaUser?.visibility = View.GONE
             binding?.btnLogout?.visibility = View.GONE
             binding?.btnLoginInHomePage?.visibility = View.VISIBLE
+        }
+
+        binding?.editTextTanggal?.setOnClickListener {
+            showDatePicker()
+        }
+
+        binding?.btnCariKetersediaan?.setOnClickListener {
+            val intent = Intent(requireActivity(), KetersediaanKamarActivity::class.java)
+            val jumlahDewasa = binding?.editTextJumlahDewasa?.text.toString()
+            val jumlahAnak = binding?.editTextJumlahAnak?.text.toString()
+            val jumlahKamar = binding?.editTextJumlahKamar?.text.toString()
+
+            val cekInCek = if (viewModel.tglCheckIn == 0L || viewModel.tglCheckOut == 0L) {
+                0
+            } else {
+                1
+            }
+            val jumlahDewasaCek = try {
+                binding?.editTextJumlahDewasa?.text.toString().toInt()
+            } catch (e: Exception) {
+                0
+            }
+            val jumlahAnakCek = try {
+                binding?.editTextJumlahAnak?.text.toString().toInt()
+            } catch (e: Exception) {
+                0
+            }
+            val jumlahKamarCek = try {
+                binding?.editTextJumlahKamar?.text.toString().toInt()
+            } catch (e: Exception) {
+                0
+            }
+
+            binding?.editTextTanggal?.error = null
+            binding?.editTextJumlahDewasa?.error = null
+            binding?.editTextJumlahKamar?.error = null
+            if(jumlahDewasaCek == 0 || cekInCek == 0 || jumlahKamarCek == 0) {
+                if(jumlahDewasaCek == 0 && cekInCek == 0 && jumlahKamarCek == 0) {
+                    binding?.editTextJumlahDewasa?.error = "Jumlah Dewasa tidak boleh kosong"
+                    binding?.editTextTanggal?.error = "Tanggal tidak boleh kosong"
+                    binding?.editTextJumlahKamar?.error = " Jumlah Kamartidak boleh kosong"
+                }else if (jumlahDewasaCek == 0 && cekInCek == 0) {
+                    binding?.editTextJumlahDewasa?.error = "Jumlah Dewasa tidak boleh kosong"
+                    binding?.editTextTanggal?.error = "Tanggal tidak boleh kosong"
+                }else if (jumlahDewasaCek == 0 && jumlahKamarCek == 0) {
+                    binding?.editTextJumlahDewasa?.error = "Jumlah Dewasa tidak boleh kosong"
+                    binding?.editTextJumlahKamar?.error = "Jumlah Kamar tidak boleh kosong"
+                }else if (cekInCek == 0 && jumlahKamarCek == 0) {
+                    binding?.editTextTanggal?.error = "Tanggal tidak boleh kosong"
+                    binding?.editTextJumlahKamar?.error = "Jumlah Kamartidak boleh kosong"
+                }else if (jumlahDewasaCek == 0) {
+                    binding?.editTextJumlahDewasa?.error = "Jumlah Dewasa tidak boleh kosong"
+                }else if (cekInCek == 0) {
+                    binding?.editTextTanggal?.error = "Tanggal tidak boleh kosong"
+                }else if (jumlahKamarCek == 0) {
+                    binding?.editTextJumlahKamar?.error = "Jumlah Kamar tidak boleh kosong"
+                }
+            }else{
+                intent.putExtra("tglCheckIn", viewModel.tglCheckIn)
+                intent.putExtra("tglCheckOut", viewModel.tglCheckOut)
+                intent.putExtra("jumlahDewasa", jumlahDewasa)
+                intent.putExtra("jumlahAnak", jumlahAnak)
+                intent.putExtra("jumlahKamar", jumlahKamar)
+                startActivity(intent)
+            }
+        }
+
+    }
+
+    private fun showDatePicker() {
+        val datePicker = MaterialDatePicker.Builder.dateRangePicker()
+            .setTitleText("Check In - Check Out")
+            .setSelection(
+                androidx.core.util.Pair(viewModel.tglCheckIn, viewModel.tglCheckOut)
+            )
+            .setCalendarConstraints(
+                CalendarConstraints.Builder()
+                    .setStart(MaterialDatePicker.todayInUtcMilliseconds())
+                    .setEnd(MaterialDatePicker.todayInUtcMilliseconds() + 31536000000)
+                    .build()
+            )
+            .build()
+
+        datePicker.show(requireActivity().supportFragmentManager, "DATE_PICKER")
+
+        datePicker.addOnPositiveButtonClickListener {
+            val startDate = Date(it.first ?: 0)
+            val endDate = Date(it.second ?: 0)
+            val startDateString = Utils.formatDate(startDate, Utils.DF_DATE_SHORT)
+            val endDateString = Utils.formatDate(endDate, Utils.DF_DATE_SHORT)
+            binding?.editTextTanggal?.setText("$startDateString - $endDateString")
+            viewModel.tglCheckIn = it.first ?: 0
+            viewModel.tglCheckOut = it.second ?: 0
         }
     }
 
@@ -103,7 +201,7 @@ class MainFragment : Fragment() {
 
                 Log.d("Jenis Kamar", data.toString())
 
-                Toast.makeText(requireActivity(), "Berhasil Menampilkan Kamar", Toast.LENGTH_LONG).show()
+//                Toast.makeText(requireActivity(), "Berhasil Menampilkan Kamar", Toast.LENGTH_LONG).show()
                 displayRecyclerView(data)
             } catch (e: Exception) {
                 Toast.makeText(requireActivity(), e.message, Toast.LENGTH_SHORT).show()
