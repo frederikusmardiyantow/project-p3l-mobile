@@ -5,7 +5,6 @@ import android.os.Bundle
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.project_p3l_mobile.R
-import com.example.project_p3l_mobile.databinding.ActivityNavigationBinding
 import com.example.project_p3l_mobile.databinding.ActivityNavigationPegawaiBinding
 
 class NavigationPegawaiActivity : AppCompatActivity() {
@@ -17,6 +16,6 @@ class NavigationPegawaiActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val navController = findNavController(R.id.nav_host_fragment_pegawai)
-        binding.navView.setupWithNavController(navController)
+        binding.navViewPegawai.setupWithNavController(navController)
     }
 }

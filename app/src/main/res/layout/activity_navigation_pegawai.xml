@@ -18,10 +18,10 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:navGraph="@navigation/ap_navigation" />
+        app:navGraph="@navigation/ap_navigation_pegawai" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/nav_view"
+        android:id="@+id/nav_view_pegawai"
         android:layout_width="0dp"
         android:layout_height="70dp"
         android:background="@color/primaryDark"

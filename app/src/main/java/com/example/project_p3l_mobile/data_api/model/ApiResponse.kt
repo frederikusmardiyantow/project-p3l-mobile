@@ -332,3 +332,30 @@ data class ResponseDataDetailHistory(
     val data:DetailTrxReservasiData
 )
 
+data class DetailLaporanCustBaru(
+    @SerializedName("no") val no:Int,
+    @SerializedName("bulan") val bulan:String,
+    @SerializedName("tahun") val tahun:String,
+    @SerializedName("jumlah_customer") val jumlah_customer:Int,
+)
+data class DataLaporanCustBaru(
+    @SerializedName("total_customer") val total_customer:Int,
+    val laporan: List<DetailLaporanCustBaru>
+)
+data class ResponseDataLaporanCustBaruPerBulan(
+    @SerializedName("status") val status:String,
+    val data:DataLaporanCustBaru
+)
+
+data class DetailLaporan5Cust(
+    @SerializedName("id_customer") val id_customer:Int,
+    @SerializedName("nama_customer") val nama_customer:String,
+    @SerializedName("jumlah_reservasi") val jumlah_reservasi:Int,
+    @SerializedName("total_harga") val total_harga:String,
+)
+data class ResponseDataLaporan5Cust(
+    @SerializedName("status") val status:String,
+    val data:List<DetailLaporan5Cust>
+)
+
+

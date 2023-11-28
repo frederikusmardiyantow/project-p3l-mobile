@@ -68,4 +68,10 @@ dependencies {
 //    untuk navigasi
     implementation("androidx.navigation:navigation-fragment-ktx:2.7.4")
     implementation("androidx.navigation:navigation-ui-ktx:2.7.4")
+
+////    untuk generate pdf
+//    implementation("com.itextpdf:itext7-core:7.1.15")
+//    implementation("com.itextpdf:itext7-layout:7.1.15")
+
+
 }

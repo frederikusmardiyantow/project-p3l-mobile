@@ -7,6 +7,8 @@ import com.example.project_p3l_mobile.data_api.model.ResponseDataHistoryByIdCust
 import com.example.project_p3l_mobile.data_api.model.ResponseDataJenisKamar
 import com.example.project_p3l_mobile.data_api.model.ResponseDataJenisKamarById
 import com.example.project_p3l_mobile.data_api.model.ResponseDataKetersediaanKamar
+import com.example.project_p3l_mobile.data_api.model.ResponseDataLaporan5Cust
+import com.example.project_p3l_mobile.data_api.model.ResponseDataLaporanCustBaruPerBulan
 import com.example.project_p3l_mobile.data_api.model.ResponseDataLoginCustomer
 import com.example.project_p3l_mobile.data_api.model.ResponseDataLoginPegawai
 import com.example.project_p3l_mobile.data_api.model.ResponseDataProfile
@@ -123,4 +125,16 @@ interface ApiService {
         @Path("id") id:Int,
         @Header("Authorization") token:String,
     ): ResponseBase
+
+    @GET("laporan/customer-baru/{tahunLaporan}")
+    suspend fun getLaporanCustomerBaru(
+        @Path("tahunLaporan") tahunLaporan:String,
+        @Header("Authorization") token:String,
+    ): ResponseDataLaporanCustBaruPerBulan
+
+    @GET("laporan/customer/reservasi-terbanyak/{tahunLaporan}")
+    suspend fun getLaporan5CustomerPemesanTerbanyak(
+        @Path("tahunLaporan") tahunLaporan:String,
+        @Header("Authorization") token:String,
+    ): ResponseDataLaporan5Cust
 }

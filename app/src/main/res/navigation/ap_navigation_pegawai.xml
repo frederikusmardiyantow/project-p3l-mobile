@@ -2,11 +2,17 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/ap_navigation_pegawai">
+    android:id="@+id/ap_navigation_pegawai"
+    app:startDestination="@id/homePegawaiFragment">
 
     <fragment
         android:id="@+id/homePegawaiFragment"
         android:name="com.example.project_p3l_mobile.HomePegawaiFragment"
         android:label="fragment_home_pegawai"
         tools:layout="@layout/fragment_home_pegawai" />
+    <fragment
+        android:id="@+id/laporanPegawaiFragment"
+        android:name="com.example.project_p3l_mobile.LaporanPegawaiFragment"
+        android:label="fragment_laporan_pegawai"
+        tools:layout="@layout/fragment_laporan_pegawai" />
 </navigation>
