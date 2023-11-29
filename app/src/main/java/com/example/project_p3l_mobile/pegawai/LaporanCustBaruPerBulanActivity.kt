@@ -1,11 +1,17 @@
 package com.example.project_p3l_mobile.pegawai
 
+import android.content.Context
 import android.content.SharedPreferences
 import android.graphics.Typeface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.print.PrintAttributes
+import android.print.PrintAttributes.MediaSize
+import android.print.PrintManager
 import android.util.Log
 import android.view.View
+import android.webkit.WebView
+import android.webkit.WebViewClient
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
@@ -26,6 +32,8 @@ class LaporanCustBaruPerBulanActivity : AppCompatActivity() {
     private lateinit var tableLayout: TableLayout
     private lateinit var binding : ActivityLaporanCustBaruPerBulanBinding
     var sharedPreferences: SharedPreferences? = null
+    private lateinit var webView: WebView
+    private lateinit var tempHTML : String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,6 +65,15 @@ class LaporanCustBaruPerBulanActivity : AppCompatActivity() {
                 getLaporanCustomerBaru("2023")
             }
         })
+
+        webView = binding.webView
+        // Setup WebView
+        webView.webViewClient = WebViewClient()
+
+        binding.btnPdf.setOnClickListener {
+            Log.e("PDF 666", tempHTML)
+            createPdfFromHtml(tempHTML)
+        }
     }
 
     private fun displayDataInTable(dataList: List<DetailLaporanCustBaru>) {
@@ -128,10 +145,53 @@ class LaporanCustBaruPerBulanActivity : AppCompatActivity() {
 
 //                Toast.makeText(requireActivity(), "Berhasil Menampilkan Kamar", Toast.LENGTH_LONG).show()
                 displayDataInTable(data.laporan)
+                tempHTML = generateHtml(data.laporan, data.total_customer)
                 binding.textTotalJumlahCustomer.text = "Total Customer : " + data.total_customer.toString()
             } catch (e: Exception) {
                 Toast.makeText(this@LaporanCustBaruPerBulanActivity, e.message, Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    private fun createPdfFromHtml(html: String) {
+        val webView = WebView(this)
+        webView.loadDataWithBaseURL(null, html, "text/html", "UTF-8", null)
+
+        // Wait for the WebView to finish loading content
+//        webView.postDelayed({
+            val printManager = getSystemService(Context.PRINT_SERVICE) as PrintManager
+            val printAdapter = webView.createPrintDocumentAdapter("Laporan Customer Baru Per Bulan")
+            val jobName = getString(R.string.app_name) + " Document"
+
+            printManager.print(jobName, printAdapter, PrintAttributes.Builder().setMediaSize(MediaSize.ISO_A4).build())
+
+//        }, 1000)
+    }
+
+    private fun generateHtml(dataList: List<DetailLaporanCustBaru>, total:Int): String {
+        val sb = StringBuilder()
+
+        sb.append("<html><body><h1 style=\"text-align: center; margin: 10px\">Laporan Customer Baru Per Bulan</h1>")
+        sb.append("<table border=\"1\" style=\"width:100%;\">")
+        sb.append("<tr>")
+        sb.append("<th style=\"width:10%;\">No</th>")
+        sb.append("<th style=\"width:50%;\">Bulan</th>")
+        sb.append("<th style=\"width:40%;\">Jumlah</th>")
+        sb.append("</tr>")
+
+        for (data in dataList) {
+            sb.append("<tr>")
+            sb.append("<td style=\"padding: 8px;\">").append(data.no).append("</td>")
+            sb.append("<td style=\"padding: 8px;\">").append(data.bulan).append("</td>")
+            sb.append("<td style=\"padding: 8px;\">").append(data.jumlah_customer).append("</td>")
+            sb.append("</tr>")
+        }
+        sb.append("<tr>")
+        sb.append("<td style=\"padding: 8px;\" colspan=\"2\">").append("").append("</td>")
+        sb.append("<td style=\"padding: 8px; font-weight: bold;\">").append(total).append("</td>")
+        sb.append("</tr>")
+
+        sb.append("</table></body></html>")
+        return sb.toString()
     }
 }

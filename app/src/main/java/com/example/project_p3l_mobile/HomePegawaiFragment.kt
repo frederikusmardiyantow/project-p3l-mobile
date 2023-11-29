@@ -1,15 +1,22 @@
 package com.example.project_p3l_mobile
 
+import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.print.PrintAttributes
+import android.print.PrintAttributes.MediaSize
+import android.print.PrintManager
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.WebView
+import android.webkit.WebViewClient
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
 import com.example.project_p3l_mobile.data_api.service.ApiConfig
 import com.example.project_p3l_mobile.databinding.FragmentHomePegawaiBinding
